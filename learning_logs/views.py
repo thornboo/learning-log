@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from .models import Topic, Entry
@@ -14,7 +14,8 @@ def index(request):
 @login_required
 def topics(request):
     """显示所有的主题"""
-    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+    # topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+    topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
