@@ -1,5 +1,4 @@
 from django import forms
-from .models import Topic
 from .models import Topic, Entry
 
 
@@ -12,7 +11,7 @@ class TopicForm(forms.ModelForm):
 
 class EntryForm(forms.ModelForm):
     class Meta:
-        model = Topic
+        model = Entry
         fields = ['text']
         labels = {'text': ''}
         # widgets是一个HTML表单元素，此时宽度为80

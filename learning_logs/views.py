@@ -14,16 +14,16 @@ def index(request):
 @login_required
 def topics(request):
     """显示所有的主题"""
-    # topics = Topic.objects.filter(owner=request.user).order_by('date_added')
-    topics = Topic.objects.order_by('date_added')
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+    # topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
 
 @login_required
 def topic(request, topic_id):
-    """显示单个主题及其所有的条目"""
-    topic = Topic.objects.get(id=topic_id)
+    """显示单个主题及其所有的内容"""
+    topic = get_object_or_404(id=topic_id)
     # 确认请求的主题属于当前用户
     if topic.owner != request.user:
         raise Http404
@@ -52,8 +52,8 @@ def new_topic(request):
 
 @login_required
 def new_entry(request, topic_id):
-    """在特定的主题中添加新条目"""
-    topic = Topic.objects.get(id=topic_id)
+    """在特定的主题中添加新内容"""
+    topic = get_object_or_404(id=topic_id)
     if request.method != 'POST':
         # 未提交数据，创建一个空表单
         form = EntryForm()
@@ -71,13 +71,13 @@ def new_entry(request, topic_id):
 
 @login_required
 def edit_entry(request, entry_id):
-    """编辑已有的条目"""
-    entry = Entry.objects.get(id=entry_id)
+    """编辑已有的内容"""
+    entry = get_object_or_404(id=entry_id)
     topic = entry.topic
     if topic.owner != request.user:
         raise Http404
     if request.method != 'POST':
-        # 初次请求，使用当前条目填充表单
+        # 初次请求，使用当前内容填充表单
         form = EntryForm(instance=entry)
     else:
         # POST提交的数据，对数据进行处理

@@ -1,10 +1,10 @@
 {% extends 'learning_logs/base.html' %}
 {% block header %}
-  <h2>{{% topic %}}</h2>
+  <h2>{{ topic }}</h2>
 {% endblock header %}
 {% block content %}
   <p>
-      <a href="{% url 'learning_logs:new_entry' topic.id %}">添加新条目</a>
+      <a href="{% url 'learning_logs:new_entry' topic.id %}">添加新笔记</a>
   </p>
   {% for entry in entries %}
   <div class="panel panel-default">
@@ -12,15 +12,15 @@
           <h3>
               {{ entry.date_added|date:'M d, Y H:i' }}
               <small>
-                  <a href="{% url 'learning_logs:edit_entry entry.id' %}">编辑条目</a>
+                  <a href="{% url 'learning_logs:edit_entry' entry.id %}">编辑内容</a>
               </small>
           </h3>
       </div>
       <div class="panel-body">
           {{ entry.text|linebreaks }}
       </div>
-  </div> <!-- panel -->
+  </div> <!-- 面板 -->
       {% empty %}
-      这个主题还没有条目。
+      这个主题还没有笔记。
       {% endfor %}
 {% endblock content %}
