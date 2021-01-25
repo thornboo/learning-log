@@ -5,6 +5,6 @@
 <form action="{% url  'learning_logs:edit_entry' entry.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">保存更改</button>
+    <button name="submit" style="background-color: #00c4ff" width="40px" height="50px">保存更改</button>
 </form>
 {% endblock content %}
