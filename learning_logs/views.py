@@ -15,7 +15,6 @@ def index(request):
 def topics(request):
     """显示所有的主题"""
     topics = Topic.objects.filter(owner=request.user).order_by('date_added')
-    # topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
